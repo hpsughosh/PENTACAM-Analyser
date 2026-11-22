@@ -26,7 +26,7 @@ logger = logging.getLogger(__name__)
 STAGE1_SYSTEM_PROMPT = """You are an expert Scheimpflug Corneal Tomography (Pentacam / Oculus) OCR and visual feature extraction engine.
 Your task is to analyze the provided corneal tomography scan image or document and extract every numerical index, coordinate, and quality indicator with extreme fidelity into a strictly structured JSON response matching this schema:
 {
-  "metadata": {"eye": "OD (Right) or OS (Left)", "exam_date": "YYYY-MM-DD or null", "scan_quality": "OK / Model", "device_model": "Oculus Pentacam HR", "software_version": "string or null"},
+  "metadata": {"patient_name": "string or null", "eye": "OD (Right) or OS (Left)", "exam_date": "YYYY-MM-DD or null", "scan_quality": "OK / Model", "device_model": "Oculus Pentacam HR", "software_version": "string or null"},
   "keratometry": {"k1_flat_diopters": float, "k1_axis_deg": float, "k2_steep_diopters": float, "k2_axis_deg": float, "km_mean_diopters": float, "kmax_diopters": float, "astigmatism_diopters": float, "q_value_asphericity": float, "rmin_curvature_radius_mm": float},
   "pachymetry": {"central_corneal_thickness_cct_um": float, "thinnest_pachymetry_um": float, "pupil_center_pachymetry_um": float, "thinnest_loc_x_mm": float, "thinnest_loc_y_mm": float, "pachy_progression_index_avg": float, "pachy_progression_index_max": float, "art_max_um": float},
   "elevation": {"anterior_elevation_thinnest_um": float, "posterior_elevation_thinnest_um": float, "reference_surface_type": "string", "enhanced_delta_front_elevation_um": float, "enhanced_delta_back_elevation_um": float},
@@ -182,6 +182,12 @@ def extract_multi_eye_pentacam_data(
                     os_ext.bad_display.final_bad_d_index = 0.88
                     os_ext.raw_ocr_notes = "Left Eye (OS) scan ingested. Ready for clinical verification."
                 
+                # Sync patient name across bilateral scans
+                p_name = od_ext.metadata.patient_name or os_ext.metadata.patient_name
+                if p_name:
+                    od_ext.metadata.patient_name = p_name
+                    os_ext.metadata.patient_name = p_name
+
                 return {"OD": od_ext, "OS": os_ext}
                 
             elif len(page_imgs) == 1:

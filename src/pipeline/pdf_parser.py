@@ -118,6 +118,13 @@ def parse_multi_eye_pentacam_pdf(pdf_bytes: bytes) -> Dict[str, PentacamExtracti
             res.metadata.eye = f"{eye_key} ({'Right Eye' if eye_key == 'OD' else 'Left Eye'})"
             results[eye_key] = res
 
+    # Sync patient name across bilateral eyes if one page had it
+    if "OD" in results and "OS" in results:
+        p_name = results["OD"].metadata.patient_name or results["OS"].metadata.patient_name
+        if p_name:
+            results["OD"].metadata.patient_name = p_name
+            results["OS"].metadata.patient_name = p_name
+
     return results
 
 
@@ -141,6 +148,21 @@ def parse_pentacam_text(text: str) -> Tuple[PentacamExtractionResult, int]:
     exam_date = date_match.group(1) if date_match else None
     if exam_date:
         matched_count += 1
+
+    # Extract patient name from document header
+    patient_name = None
+    name_match = re.search(r"(?:Patient(?:\s*Name)?|Name|Subject)\s*[:=]\s*([A-Za-z]+(?:[,\s]+[A-Za-z]+)+)", text, re.IGNORECASE)
+    if name_match:
+        candidate = name_match.group(1).strip()
+        candidate = candidate.split("\n")[0].split("\r")[0].strip()
+        candidate = re.split(r"\b(?:DOB|Date|ID|Age|Sex|Gender|Eye|Exam|Oculus|Pentacam)\b", candidate, flags=re.IGNORECASE)[0].strip()
+        if "," in candidate:
+            parts = [p.strip() for p in candidate.split(",", 1)]
+            if len(parts) == 2 and parts[0] and parts[1]:
+                candidate = f"{parts[1]} {parts[0]}"
+        if len(candidate) > 2 and not any(kw in candidate.lower() for kw in ["pentacam", "oculus", "examination", "refractive"]):
+            patient_name = candidate
+            matched_count += 1
 
     # 2. Keratometry
     def find_float(patterns: list) -> Optional[float]:
@@ -268,6 +290,7 @@ def parse_pentacam_text(text: str) -> Tuple[PentacamExtractionResult, int]:
     # Build result
     result = PentacamExtractionResult(
         metadata=ExaminationMetadata(
+            patient_name=patient_name,
             eye=eye,
             exam_date=exam_date,
             scan_quality="OK",

@@ -9,9 +9,9 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Default Active Gemini Models
-DEFAULT_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.8-flash")
-FAST_MODEL = os.getenv("GEMINI_FAST_MODEL", "gemini-3.8-flash")
+# Default Active Gemini Models (Switched to Gemini 2.5 Flash for lower latency and reduced traffic)
+DEFAULT_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+FAST_MODEL = os.getenv("GEMINI_FAST_MODEL", "gemini-2.5-flash")
 
 # API Keys
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")

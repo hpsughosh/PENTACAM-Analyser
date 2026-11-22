@@ -8,6 +8,10 @@ from pydantic import BaseModel, Field
 
 class ExaminationMetadata(BaseModel):
     """Scan and patient metadata extracted from Pentacam header."""
+    patient_name: Optional[str] = Field(
+        default=None,
+        description="Patient name if visible on scan report header"
+    )
     eye: str = Field(
         default="Unknown",
         description="Examined eye: OD (Right), OS (Left), or Unknown"

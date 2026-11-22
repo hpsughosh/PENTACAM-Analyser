@@ -20,6 +20,7 @@ SAMPLE_CASES: Dict[str, Dict[str, Any]] = {
         "description": "Standard adult cornea with gentle prolate curvature, normal pachymetry (>540µm), and baseline posterior elevation (+7µm).",
         "data": PentacamExtractionResult(
             metadata=ExaminationMetadata(
+                patient_name="Sarah Jenkins",
                 eye="OD (Right Eye)",
                 exam_date="2026-03-15",
                 scan_quality="OK",
@@ -78,6 +79,7 @@ SAMPLE_CASES: Dict[str, Dict[str, Any]] = {
         "description": "Subtle early posterior elevation (+15µm) and borderline BAD-D (2.15 SD, yellow display) with mild inferior thinning.",
         "data": PentacamExtractionResult(
             metadata=ExaminationMetadata(
+                patient_name="Michael Chang",
                 eye="OS (Left Eye)",
                 exam_date="2026-04-10",
                 scan_quality="OK",
@@ -136,6 +138,7 @@ SAMPLE_CASES: Dict[str, Dict[str, Any]] = {
         "description": "Classic keratoconus profile with Kmax 53.8 D, significant pachymetric thinning (436µm), posterior elevation +28µm, and BAD-D 4.82 SD (Red display).",
         "data": PentacamExtractionResult(
             metadata=ExaminationMetadata(
+                patient_name="David Miller",
                 eye="OD (Right Eye)",
                 exam_date="2026-05-02",
                 scan_quality="OK",
@@ -194,6 +197,7 @@ SAMPLE_CASES: Dict[str, Dict[str, Any]] = {
         "description": "Stable post-myopic LASIK profile with flat central curvature (38.2 D), positive Q-value (+0.48 oblate), and stable posterior elevation (+8µm).",
         "data": PentacamExtractionResult(
             metadata=ExaminationMetadata(
+                patient_name="Rachel Adams",
                 eye="OD (Right Eye)",
                 exam_date="2026-06-18",
                 scan_quality="OK",
@@ -252,6 +256,7 @@ SAMPLE_CASES: Dict[str, Dict[str, Any]] = {
         "description": "Right eye report showing moderate focal thinning (456 µm at thinnest location), marked posterior BFS elevation (+33 µm at thinnest, up to +42 µm peak), Kmax 46.6 D, and BAD-D 5.34 SD.",
         "data": PentacamExtractionResult(
             metadata=ExaminationMetadata(
+                patient_name="Carlos Gomez",
                 eye="OD (Right Eye)",
                 exam_date="2026-06-20",
                 scan_quality="OK",
@@ -311,6 +316,7 @@ SAMPLE_CASES: Dict[str, Dict[str, Any]] = {
         "is_bilateral": True,
         "data_od": PentacamExtractionResult(
             metadata=ExaminationMetadata(
+                patient_name="Elena Rostova",
                 eye="OD (Right Eye)",
                 exam_date="2026-06-20",
                 scan_quality="OK",
@@ -365,6 +371,7 @@ SAMPLE_CASES: Dict[str, Dict[str, Any]] = {
         ),
         "data_os": PentacamExtractionResult(
             metadata=ExaminationMetadata(
+                patient_name="Elena Rostova",
                 eye="OS (Left Eye)",
                 exam_date="2026-06-20",
                 scan_quality="OK",
@@ -419,6 +426,7 @@ SAMPLE_CASES: Dict[str, Dict[str, Any]] = {
         ),
         "data": PentacamExtractionResult(
             metadata=ExaminationMetadata(
+                patient_name="Elena Rostova",
                 eye="OD (Right Eye)",
                 exam_date="2026-06-20",
                 scan_quality="OK",
