@@ -4,8 +4,6 @@
 [![Google GenAI SDK](https://img.shields.io/badge/Model-gemini--2.5--flash-0284C7.svg)](https://ai.google.dev/)
 [![Pydantic v2](https://img.shields.io/badge/typing-pydantic--v2-red.svg)](https://docs.pydantic.dev/)
 [![Streamlit](https://img.shields.io/badge/frontend-Streamlit-FF4B4B.svg)](https://streamlit.io/)
-[![Theme](https://img.shields.io/badge/theme-Navy%20%26%20White-0A192F.svg)](#)
-
 **PentaRead** is an intelligent, multi-stage cognitive scaffolding system that translates complex Scheimpflug corneal tomography (**Oculus Pentacam**) scans into clear, calibrated, and anxiety-free explanations for lay patients. 
 
 Engineered with a solid **Navy Blue and White** interface, interactive **3D and 2D eye maps**, everyday physical metaphors, and personalized doctor consultation guides.
